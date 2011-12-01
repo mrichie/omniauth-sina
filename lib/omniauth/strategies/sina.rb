@@ -6,8 +6,7 @@ module OmniAuth
         :authorize_path => '/oauth/authorize',
         :site => 'http://api.t.sina.com.cn',
         :request_token_path => '/oauth/request_token',
-        :access_token_path => '/oauth/access_token',
-        :realm => 'http://ruby-love.com',
+        :access_token_path => '/oauth/access_token'
       }
       
       option :callback_confirmed, true
