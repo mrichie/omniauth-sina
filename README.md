@@ -2,6 +2,8 @@
 
 This gem contains the Sina strategy for OmniAuth.
 
+The base strategie is fork from omniauth-oauth gem, and fix the problem at this patch that sina weibo does not return call_back_confirmed params when get request token.
+
 ## How To Use It
 
 Usage is as per any other OmniAuth 1.0 strategy. So let's say you're using Rails, you need to add the strategy to your `Gemfile`:

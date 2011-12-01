@@ -1,12 +1,16 @@
-require 'omniauth-oauth'
-require 'multi_json'
-
 module OmniAuth
   module Strategies
-    class Sina < OmniAuth::Strategies::OAuth
+    class Sina < OmniAuth::Strategies::Auth
       option :name, 'sina'
-      option :client_options, {:authorize_path => '/oauth/authorize',
-                               :site => 'http://api.t.sina.com.cn'}
+      option :client_options, {
+        :authorize_path => '/oauth/authorize',
+        :site => 'http://api.t.sina.com.cn',
+        :request_token_path => '/oauth/request_token',
+        :access_token_path => '/oauth/access_token',
+        :realm => 'http://ruby-love.com',
+      }
+      
+      option :callback_confirmed, true
 
       uid { access_token.params[:user_id] }
 
@@ -19,11 +23,16 @@ module OmniAuth
           :description => raw_info['description'],
           :urls => {
             'Website' => raw_info['url'],
-            'Sina' => 'http://api.t.sina.com.cn/' + raw_info['screen_name'],
+            'Sina' => 'http://weibo.com/' + raw_info['screen_name'],
           }
         }
       end
-
+      
+      def raw_info
+        @raw_info ||= MultiJson.decode(access_token.get('/account/verify_credentials.json').body)
+      rescue ::Errno::ETIMEDOUT
+        raise ::Timeout::Error
+      end
     end
   end
 end
