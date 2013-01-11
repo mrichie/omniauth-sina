@@ -22,7 +22,7 @@ module OmniAuth
           :description => raw_info['description'],
           :urls => {
             'Website' => raw_info['url'],
-            'Sina' => 'http://weibo.com/' + raw_info['screen_name'],
+            'Sina' => "http://weibo.com/#{raw_info['screen_name']}",
           }
         }
       end
